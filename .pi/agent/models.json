@@ -1,0 +1,59 @@
+{
+  "providers": {
+    "zai-coding-cn": {
+      "baseUrl": "https://open.bigmodel.cn/api/coding/paas/v4",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "glm-5.3-flashx",
+          "name": "GLM-5.3-FlashX",
+          "api": "openai-completions",
+          "provider": "zai-coding-cn",
+          "baseUrl": "https://open.bigmodel.cn/api/coding/paas/v4",
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": null,
+            "high": "high",
+            "xhigh": null,
+            "max": "max"
+          },
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0.37,
+            "output": 1.25,
+            "cacheRead": 0.075,
+            "cacheWrite": 0.37
+          },
+          "compat": {
+            "supportsStore": false,
+            "supportsDeveloperRole": false,
+            "supportsReasoningEffort": true,
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "zai",
+            "supportsStrictMode": true,
+            "zaiToolStream": true
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "inputLimits": {
+            "images": {
+              "resize": {
+                "maxWidth": 2000,
+                "maxHeight": 2000,
+                "maxBytes": 4718592,
+                "jpegQuality": 80
+              }
+            }
+          },
+          "type": "chat"
+        }
+      ]
+    }
+  }
+}

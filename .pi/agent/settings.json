@@ -1,0 +1,33 @@
+{
+  "lastChangelogVersion": "1.4.0",
+  "packages": [
+    "npm:pi-atelier",
+    "npm:@tintinweb/pi-subagents",
+    "npm:pi-lens",
+    "npm:pi-web-access",
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:pi-goal-x",
+    "npm:pi-model-system-prompt",
+    "npm:pi-better-math",
+    "npm:pi-smart-compact",
+    "npm:pi-antigravity"
+  ],
+  "hideThinkingBlock": true,
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-6-astra",
+  "defaultThinkingLevel": "xhigh",
+  "smartCompact": {
+    "mode": "thorough",
+    "compactionEngines": [
+      "eesv"
+    ],
+    "summaryThinkingLevel": "high",
+    "segmentationThinkingLevel": "high",
+    "focusWeighting": true,
+    "zeroCallEnabled": false,
+    "agentToolAccess": "disabled",
+    "contextPivotEnabled": false,
+    "contextGraphEnabled": false,
+    "contextRecallEnabled": false
+  }
+}

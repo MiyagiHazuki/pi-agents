@@ -1,0 +1,6 @@
+{
+  "fetch": {
+    "answerProvider": "zai-coding-cn",
+    "answerModel": "glm-5.3-flash"
+  }
+}
