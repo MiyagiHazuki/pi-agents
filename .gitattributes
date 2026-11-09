@@ -1,0 +1,2 @@
+# Keep patch context compatible with LF files in npm tarballs on every platform.
+/patches/*.patch text eol=lf

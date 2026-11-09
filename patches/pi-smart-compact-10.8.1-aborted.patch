@@ -1,0 +1,14 @@
+diff --git a/dist/index.js b/dist/index.js
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -27859,7 +27859,9 @@
+     else
+       observeBackground(ctx);
+   });
+-  pi.on("agent_settled", async (_event, ctx) => {
++  pi.on("agent_settled", async (event, ctx) => {
++    if (event.aborted)
++      return;
+     if (pivotQueued(ctx))
+       return;
+     observeBackground(ctx);

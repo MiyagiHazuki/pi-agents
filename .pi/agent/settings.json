@@ -23,6 +23,7 @@
     ],
     "summaryThinkingLevel": "high",
     "segmentationThinkingLevel": "high",
+    "codexMaxCallMs": 240000,
     "focusWeighting": true,
     "zeroCallEnabled": false,
     "agentToolAccess": "disabled",

@@ -1,9 +1,14 @@
-# Default deny: only reviewed configuration is published.
+# Default deny: publish only reviewed configuration, documentation, and patches.
 /*
 !/.gitignore
+!/.gitattributes
 !/README.md
 !/.pi/
 !/.pi-lens/
+!/patches/
+
+/patches/*
+!/patches/pi-smart-compact-10.8.1-aborted.patch
 
 /.pi/*
 !/.pi/agent/
