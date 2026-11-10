@@ -76,9 +76,21 @@ npm 網頁若因防爬機制回傳 403，可使用官方 registry 的套件資�
 - Git。
 - Lens 所需的各語言工具依使用的語言另裝，或依插件的安裝提示處理；不要從 Windows 複製執行檔。
 
+**Pi 官方推薦**的安裝方式是在 PowerShell 執行以下命令（Windows PowerShell 或已安裝 PowerShell 的環境皆可）：
+
+> ### `powershell -c "irm https://pi.dev/install.ps1 | iex"`
+
+```powershell
+powershell -c "irm https://pi.dev/install.ps1 | iex"
+```
+
+Linux server 若無 PowerShell，可改用官方 npm 套件全域安裝：
+
 ```bash
 npm install -g --ignore-scripts @earendil-works/pi-coding-agent
 ```
+
+兩種方式擇一即可；安裝完成後 `pi` 應在 `PATH` 中。
 
 ### 2. 從乾淨 clone 複製配置到使用者目錄
 
