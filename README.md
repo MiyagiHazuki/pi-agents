@@ -76,7 +76,17 @@ npm 網頁若因防爬機制回傳 403，可使用官方 registry 的套件資�
 - Git。
 - Lens 所需的各語言工具依使用的語言另裝，或依插件的安裝提示處理；不要從 Windows 複製執行檔。
 
-**Pi 官方推薦**的安裝方式是在 PowerShell 執行以下命令（Windows PowerShell 或已安裝 PowerShell 的環境皆可）：
+**Pi 官方推薦**使用安裝腳本安裝（會鎖定所有相依套件版本，後續可用 `pi update` 更新 Pi）：
+
+Linux / macOS：
+
+> ### `curl -fsSL https://pi.dev/install.sh | sh`
+
+```bash
+curl -fsSL https://pi.dev/install.sh | sh
+```
+
+Windows（PowerShell）：
 
 > ### `powershell -c "irm https://pi.dev/install.ps1 | iex"`
 
@@ -84,13 +94,19 @@ npm 網頁若因防爬機制回傳 403，可使用官方 registry 的套件資�
 powershell -c "irm https://pi.dev/install.ps1 | iex"
 ```
 
-Linux server 若無 PowerShell，可改用官方 npm 套件全域安裝：
+也可改用官方 npm 套件全域安裝（不鎖定間接相依套件，需自行準備 Node.js 22.19+）：
 
 ```bash
 npm install -g --ignore-scripts @earendil-works/pi-coding-agent
 ```
 
-兩種方式擇一即可；安裝完成後 `pi` 應在 `PATH` 中。
+Linux / macOS 若使用 Nix，亦可透過官方 flake 安裝（需改用 `nix profile upgrade pi` 更新，不適用 `pi update`）：
+
+```bash
+nix profile add github:earendil-works/pi/stable
+```
+
+以上方式擇一即可；安裝完成後確認 `pi` 在 `PATH` 中（可執行 `pi --version` 驗證）。
 
 ### 2. 從乾淨 clone 複製配置到使用者目錄
 
