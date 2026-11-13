@@ -41,6 +41,7 @@
 
 /.pi/agent/extensions/*
 !/.pi/agent/extensions/delegation.ts
+!/.pi/agent/extensions/subagent-sidebar.ts
 
 /.pi-lens/*
 !/.pi-lens/config.json

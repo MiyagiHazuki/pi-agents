@@ -17,7 +17,8 @@
 | `.pi/agent/model-system-prompt/*.md` | DeepSeek、GLM、GPT 的系統提示詞 |
 | `.pi/agent/agent-tool-description.md` | 子代理工具說明模板 |
 | `.pi/agent/extensions/delegation.ts` | 本地自訂擴充，不是可省略的 npm 安裝產物 |
-| `.pi/agent/pi-atelier.json` | Atelier 設定 |
+| `.pi/agent/extensions/subagent-sidebar.ts` | Subagents Live 側欄橋接，顯示頂層代理的即時狀態與任務 |
+| `.pi/agent/pi-atelier.json` | Atelier 設定，含 Subagents Live 的可見性與位置 |
 | `.pi/agent/pi-goal-x-settings.json` | Goal X 設定 |
 | `.pi/agent/web-search.json` | 網頁搜尋／回答模型設定 |
 | `.pi-lens/config.json` | Lens 全域設定 |
@@ -147,10 +148,30 @@ MCP 若要求 OAuth 或 API key，依 `pi mcp --help` 及各服務說明重新�
 ### 4. 還原後檢查
 
 - `pi list` 列出預期的 10 個插件。
-- 系統提示詞與 7 個子代理能被載入，本地 `delegation.ts` 沒有載入錯誤。
+- 系統提示詞與 7 個子代理能被載入，本地 `delegation.ts` 與 `subagent-sidebar.ts` 沒有載入錯誤。
 - 依 `pi mcp --help` 檢查服務狀態，並實際呼叫已啟用 MCP 的工具；不要把「列出配置」當成「服務連線成功」。
 - Lens 使用已部署的全域配置，且所需語言服務可正常工作。
 - 在獨立測試會話中驗收 smartCompact 的**自動**觸發、模型摘要來源與實際寫入；方法見下方 C 節。手動壓縮成功不能代替此項，未執行的檢查須標記「未驗證」。
+
+## Subagents Live 側欄
+
+[側欄橋接擴充](.pi/agent/extensions/subagent-sidebar.ts) 將 `@tintinweb/pi-subagents` 的頂層代理狀態顯示在 Atelier 的 **SUBAGENTS LIVE** 面板。
+本機驗證環境為 Pi 1.5.1、pi-atelier 0.18.0 與 pi-subagents 0.23.1；此處記錄驗證版本，插件清單仍不鎖版本。
+
+還原時先完成插件安裝，再啟動 Pi 或執行 `/reload`。擴充會相對載入 agent 目錄中
+`npm/node_modules/pi-atelier/extensions/index.ts` 的公開面板 API，因此需連同既有 `extensions/` 目錄結構部署。
+`pi-atelier.json` 已將 `subagents:live` 設為可見，排在 `workspace` 後面；可用 `/atelier display` 調整。
+`subagents.json` 的 `widgetMode: "off"` 控制原本輸入框旁的 Widget，橋接側欄仍會顯示。
+
+面板顯示代理類型、指派任務、狀態、耗時與工具次數，每秒更新；工具次數透過 Subagents 公開的唯讀 manager registry 補齊。
+完成項目保留約 12 秒。列表依目前保留項目數自動壓縮：
+
+- 1～2 筆：每筆 2 行，分別顯示任務與執行資訊。
+- 3～4 筆：每筆 1 行。
+- 5 筆以上：顯示 3 筆及剩餘數量，可到 `/agents` 查看完整列表。
+
+面板最多 5 行內容，加上 Atelier 外框與間距共 8 行。本機已實測多代理顯示；更矮的終端仍可能因 Atelier 的高度裁切策略隱藏面板。
+此擴充追蹤頂層代理，未整合巢狀與 workflow 子代理的完整生命週期；RPC／排程代理開始執行後才會被追蹤。
 
 ## smartCompact 已知問題與修正
 
