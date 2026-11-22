@@ -40,6 +40,7 @@
 !/.pi/agent/model-system-prompt/gpt.md
 
 /.pi/agent/extensions/*
+!/.pi/agent/extensions/antigravity-prompt-compat.ts
 !/.pi/agent/extensions/delegation.ts
 !/.pi/agent/extensions/subagent-sidebar.ts
 
