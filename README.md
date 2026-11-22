@@ -14,8 +14,9 @@
 | `.pi/agent/mcp.json` | 選定的 4 個 MCP 服務器的連線／啟動資訊及啟用狀態 |
 | `.pi/agent/subagents.json` | 子代理行為設定 |
 | `.pi/agent/agents/*.md` | 7 個子代理的提示詞、模型及工具設定 |
-| `.pi/agent/model-system-prompt/*.md` | DeepSeek、GLM、GPT 的系統提示詞 |
+| `.pi/agent/model-system-prompt/*.md` | DeepSeek、Gemini、GLM、GPT 的系統提示詞 |
 | `.pi/agent/agent-tool-description.md` | 子代理工具說明模板 |
+| [`.pi/agent/extensions/antigravity-prompt-compat.ts`](.pi/agent/extensions/antigravity-prompt-compat.ts) | 調整送往 Antigravity 的提示詞開頭與工具文件措辭；可設 `PI_ANTIGRAVITY_PROMPT_COMPAT=off` 停用 |
 | `.pi/agent/extensions/delegation.ts` | 本地自訂擴充，不是可省略的 npm 安裝產物 |
 | `.pi/agent/extensions/subagent-sidebar.ts` | Subagents Live 側欄橋接，顯示頂層代理的即時狀態與任務 |
 | `.pi/agent/pi-atelier.json` | Atelier 設定，含 Subagents Live 的可見性與位置 |
@@ -31,6 +32,15 @@
 
 `.gitignore` 採明確白名單：新檔案預設不公開。新增插件的獨立配置、代理、提示詞或 MCP 輔助檔案後，需先檢查內容，再將對應路徑加入白名單。
 插件若把設定寫在本目錄以外，必須另外收錄，這個備份不會自動捕捉。
+
+每次推送前，在**原始備份目錄**執行以下盤點。第一行列出所有未追蹤項目（含被忽略的檔案），並將整個未追蹤目錄折疊成一行；遇到陌生目錄，先查看裡面的檔名。第二行只展開代理、提示詞、擴充與補丁目錄，方便辨認漏收的檔案。
+
+```bash
+git ls-files --others --directory --no-empty-directory
+git ls-files --others -- .pi/agent/agents .pi/agent/model-system-prompt .pi/agent/extensions patches
+```
+
+這兩個命令只列檔名。確認需要還原的檔案可公開後，將它逐檔加入 `.gitignore` 白名單，再用 `git diff --cached` 核對將要推送的內容。舊 MCP 設定副本 `mcp.json.before-managed-lean` 和插件版本提示 `pi-web-access/last-seen-version.json` 都保留在本機。
 
 ## MCP 服務器
 
@@ -148,7 +158,7 @@ MCP 若要求 OAuth 或 API key，依 `pi mcp --help` 及各服務說明重新�
 ### 4. 還原後檢查
 
 - `pi list` 列出預期的 10 個插件。
-- 系統提示詞與 7 個子代理能被載入，本地 `delegation.ts` 與 `subagent-sidebar.ts` 沒有載入錯誤。
+- 確認 4 份模型提示詞與 7 個子代理均已部署；啟動 Pi 或執行 `/reload` 後，檢查 `antigravity-prompt-compat.ts`、`delegation.ts`、`subagent-sidebar.ts` 是否出現載入錯誤。
 - 依 `pi mcp --help` 檢查服務狀態，並實際呼叫已啟用 MCP 的工具；不要把「列出配置」當成「服務連線成功」。
 - Lens 使用已部署的全域配置，且所需語言服務可正常工作。
 - 在獨立測試會話中驗收 smartCompact 的**自動**觸發、模型摘要來源與實際寫入；方法見下方 C 節。手動壓縮成功不能代替此項，未執行的檢查須標記「未驗證」。

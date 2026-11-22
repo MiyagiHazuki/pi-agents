@@ -36,6 +36,7 @@
 
 /.pi/agent/model-system-prompt/*
 !/.pi/agent/model-system-prompt/deepseek.md
+!/.pi/agent/model-system-prompt/gemini.md
 !/.pi/agent/model-system-prompt/glm.md
 !/.pi/agent/model-system-prompt/gpt.md
 
